@@ -19,6 +19,15 @@ app.get('/', (req, res) => {
     res.send("Hello this is a Dog api.");
 });
 
+app.get("/all",async(req,res)=>{
+    try {
+        const allDogs = await Dog.find();
+        return res.status(200).send(allDogs);
+    } catch (error) {
+        return res.status(400).json({code:400,msg:"No Dog found."});
+    }
+})
+
 app.get('/:id',async(req,res)=>{
     try {
         const dog =  await Dog.findById(req.params.id);
