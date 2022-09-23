@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 require('dotenv').config();
 const path = require('path');
-
+var cors = require('cors')
 const port = process.env.PORT || 3000;
 
 const db = require("./config/db");
@@ -10,7 +10,12 @@ db();
 
 app.use(express.json());
 
+var corsOptions = {
+    origin: process.env.client.split(','),
+    //optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
 
+app.use(cors(corsOptions))
 const { Dog } = require("./models/dog");
 
 
